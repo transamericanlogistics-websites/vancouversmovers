@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>{{ page.title | default: site.title }}</title>
+  <link rel="shortcut icon" href="{{ "/favicon.webp" | relative_url }}" type="image/webp">
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root { --primary-blue: #004AAD; --mid-blue: #E8F4FF; --accent-blue: #007BFF; --accent-red: #FF3B30; --text-dark: #333; --radius: 12px; }
+    * { box-sizing: border-box; margin:0; padding:0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Montserrat', sans-serif; color: var(--text-dark); }
+    a { text-decoration: none; }
+    .container { width: 90%; max-width: 1200px; margin: 0 auto; }
+    nav { position: sticky; top:0; background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.1); z-index:100; }
+    nav .container { display:flex; justify-content:space-between; align-items:center; padding:1rem 0; }
+    nav .logo svg { height:85px; width:auto; display:block; }
+    nav ul { display:flex; gap:1.5rem; list-style:none; }
+    nav ul li a { color:var(--primary-blue); font-weight:600; }
+    nav .actions { display:flex; gap:1rem; align-items:center; }
+    .btn { padding:.75rem 1.5rem; border-radius:50px; font-weight:600; }
+    .btn-accent { background:var(--accent-blue); color:#fff; }
+    .btn-red { background:var(--accent-red); color:#fff; }
+    .btn-outline-red { border:2px solid var(--accent-red); color:var(--accent-red); }
+    section { padding:4rem 0; }
+    .card { background:#fff; border-radius:var(--radius); box-shadow:0 3px 10px rgba(0,0,0,0.05); padding:2rem; }
+    .placeholder-img { width:100%; height:625px; border-radius:var(--radius); background:#ccc; display:flex; align-items:center; justify-content:center; color:#666; }
+    .placeholder-img img { display:block; width:100%; height:100%; object-fit:cover; border-radius:var(--radius); }
+    /* …and all your other styles… */
+    footer { background:var(--primary-blue); color:#fff; }
+    footer .footer-cols { display:flex; flex-wrap:wrap; gap:2rem; max-width:1200px; margin:0 auto; padding:4rem 0; }
+    footer .col { flex:1; min-width:150px; }
+    footer h4 { margin-bottom:1rem; font-size:1.1rem; }
+    footer ul { list-style:none; }
+    footer ul li { margin-bottom:.5rem; }
+    footer ul li a { color:#fff; }
+    .social { display:flex; gap:1rem; margin-top:1rem; }
+    .social a { color:#fff; font-size:1.25rem; }
+  </style>
+</head>
+<body>
+
+  {% include nav.html %}
+
+  {{ content }}
+
+  {% include footer.html %}
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const testimonials = [
+        { text: 'The movers were incredibly fast and efficient, as well as kind and thoughtful. Moving is stressful, but the move team made it a great experience for us.', author: '— Lynne', location: 'Vancouver', rating: 5 },
+        { text: 'Excellent service from start to finish. The team handled our piano with utmost care and made sure everything was perfect.', author: '— Mike', location: 'North Vancouver', rating: 4.8 },
+        { text: 'Professional and friendly staff. Our belongings arrived on time and in perfect condition. Highly recommend!', author: '— Sarah', location: 'Burnaby', rating: 5 }
+      ];
+      let current = 0;
+      const textEl = document.getElementById('testimonial-text');
+      const authorEl = document.getElementById('testimonial-author');
+      const locationEl = document.getElementById('testimonial-location-text');
+      const starsEl = document.getElementById('stars');
+      function showTestimonial(idx) {
+        const t = testimonials[idx];
+        textEl.textContent = t.text;
+        authorEl.textContent = t.author;
+        locationEl.textContent = t.location;
+        const filled = '★'.repeat(Math.round(t.rating));
+        const empty = '☆'.repeat(5 - Math.round(t.rating));
+        starsEl.textContent = `${filled}${empty} ${t.rating.toFixed(1)}/5.0`;
+      }
+      document.querySelector('.prev').addEventListener('click', () => {
+        current = (current - 1 + testimonials.length) % testimonials.length;
+        showTestimonial(current);
+      });
+      document.querySelector('.next').addEventListener('click', () => {
+        current = (current + 1) % testimonials.length;
+        showTestimonial(current);
+      });
+      showTestimonial(current);
+    });
+  </script>
+</body>
+</html>
