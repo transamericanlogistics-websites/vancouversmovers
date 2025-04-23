@@ -1,2 +1,11 @@
-# _config.yml
+# Theme configuration
+
 title: Vancouvers Movers
+
+primary_color: "#004AAD"            # Main brand/nav/button color
+secondary_bg_color: "#E8F4FF"      # Light background accent
+accent_color: "#007BFF"            # Secondary accent for highlights
+error_color: "#FF3B30"             # Alerts, danger buttons
+text_color: "#333333"              # Primary body text
+border_radius: "12px"               # Global border radius
+button_radius: "50px"               # Roundness for pill buttons
